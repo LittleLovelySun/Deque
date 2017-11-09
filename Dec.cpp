@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Dec.h"
 #include <iomanip>
+#include <ctime>
+#include <cstdlib>
 #include <cstring>
 
 using namespace std;
@@ -95,6 +97,19 @@ void Deque<T>::printEnd() {
 		now(now->next);
 	}
 }
+
+template <typename T>
+Deque<T>::~Deque() {
+
+	while(front){
+		Node<T> *tmp(front->prev);
+		delete front;
+		front = tmp;
+	}
+	front = NULL;
+	end = NULL;
+}
+
 /*
 void swap(Node<string> a, Node<string> b) {
 
