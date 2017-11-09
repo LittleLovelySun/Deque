@@ -8,10 +8,12 @@ using namespace std;
 int main() {
 
 	Deque <int> a;
-	for (int i = 0; i < 10; i++) {
-		a.pushFront(rand()%100);
+	for (int i = 0; i < 3; i++) {
+		a.pushFront(i);
+		cout << i << endl;
 	}
 
 	a.printFront();
+	cout << endl;
 	a.printEnd();
 }

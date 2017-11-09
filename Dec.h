@@ -72,14 +72,14 @@ Deque<T>::Deque() {
 template <typename T>
 void Deque<T>::pushFront(const T &value) {
 	if (!front) {
-		Node<T> tmp(value);
-		front = &tmp;
-		end = &tmp;
+		Node<T> *tmp = new Node<T>(value);
+		front = tmp;
+		end = tmp;	
 	}
 	else {
-		Node<T> tmp(front, NULL, value);
-		front->next = &tmp;
-		front = &tmp;
+		Node<T> *tmp = new Node<T>(front, NULL, value);
+		front->next = tmp;
+		front = tmp;
 	}
 }
 
