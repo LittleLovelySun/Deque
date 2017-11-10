@@ -6,24 +6,28 @@
 using namespace std;
 
 int main() {
-
-	Deque <int> a;
-	for (int i = 0; i < 10; i++) {
-		a.pushFront(i);
-		cout << i << endl;
+	WordDeq a;
+	string s;
+	while(getline(cin, s)) {
+		a.pushFront(s);
 	}
 
-	a.printFront();
-	a.printEnd();
+	a.printFront("front:");
+	a.printEnd("end:");
+
+	a.Sort();
+	cout << endl;
+
+	a.printFront("front(sort):");
+	a.printEnd("end(sort):");
 
 	a.popFront();
 
-	a.printFront();
-	a.printEnd();
+	a.printFront("front(popfront):");
+	a.printEnd("end(popfront):");
 
 	a.popEnd();
 
-	a.printFront();
-	a.printEnd();
-
+	a.printFront("front(popend):");
+	a.printEnd("end(popend):");
 }

@@ -28,10 +28,16 @@ public:
 	void popFront();
 	void popEnd();
 
-	void printFront();
-	void printEnd();
+	void printFront(const string &msg = "");
+	void printEnd(const string &msg = "");
 
 	~Deque();
+};
+
+
+class WordDeq: public Deque<std::string> {
+public:
+	void Sort();
 };
 
 template <typename T>
@@ -83,7 +89,9 @@ void Deque<T>::pushEnd(const T &value) {
 }
 
 template <typename T>
-void Deque<T>::printFront() {
+void Deque<T>::printFront(const string &msg) {
+	cout << msg;
+
 	if (!front) {
 		cout << "Deque is empty";
 		return;
@@ -99,7 +107,9 @@ void Deque<T>::printFront() {
 }
 
 template <typename T>
-void Deque<T>::printEnd() {
+void Deque<T>::printEnd(const string &msg) {
+	cout << msg;
+	
 	if (!end) {
 		cout << "Deque is empty";
 		return;
@@ -150,13 +160,47 @@ Deque<T>::~Deque() {
 }
 
 
-/*
-class WordDeq: public Deque<std::string> {
-	//WordDeq();
-	void SortDeq();
-	//~WordDeq();
-};
+void WordDeq::Sort() {
+	bool isSorted = false;
 
-void swap(Node<std::string> a, Node<std::string> b);
-*/
+	while (!isSorted) {
+		isSorted = true;
+
+		Node<string> *now = front;
+
+		while (now->next) {
+			Node<string> *l1 = now;
+			Node<string> *l2 = now->next;
+
+			if (l1->value > l2->value) {
+
+				Node<string> *prev = l1->prev;
+				Node<string> *next = l2->next;
+
+				l2->prev = prev;
+				l2->next = l1;
+				l1->prev = l2;
+				l1->next = next;
+
+				if (l1 == front) {
+					front = l2;
+					next->prev = l1;
+				}
+				else if (l2 == end) {
+					end = l1;
+					prev->next = l2;
+				}
+				else {
+					prev->next = l2;
+					next->prev = l1;
+				}
+
+				isSorted = false;
+			}
+			else 
+				now = now->next;
+		}
+	}
+}
+
 #endif
