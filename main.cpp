@@ -8,12 +8,12 @@ using namespace std;
 int main() {
 
 	Deque <int> a;
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 2; i++) {
 		a.pushFront(i);
 		cout << i << endl;
 	}
 
-	a.printFront();
+	/*a.printFront();
 	cout << endl;
-	a.printEnd();
+	a.printEnd();*/
 }
