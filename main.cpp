@@ -15,4 +15,15 @@ int main() {
 
 	a.printFront();
 	a.printEnd();
+
+	a.popFront();
+
+	a.printFront();
+	a.printEnd();
+
+	a.popEnd();
+
+	a.printFront();
+	a.printEnd();
+
 }

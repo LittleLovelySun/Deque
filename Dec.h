@@ -115,6 +115,30 @@ void Deque<T>::printEnd() {
 }
 
 template <typename T>
+void Deque<T>::popFront() {
+	if (!front) {
+		cout << "Deque is empty" << endl;
+		return;
+	}
+	Node<T> *tmp = front;
+	front = front->next;
+	front->prev = NULL;
+	delete tmp;
+}
+
+template <typename T>
+void Deque<T>::popEnd() {
+	if (!end) {
+		cout << "Deque is empty" << endl;
+		return;
+	}
+	Node<T> *tmp = end;
+	end = end->prev;
+	end->next = NULL;
+	delete tmp;
+}
+
+template <typename T>
 Deque<T>::~Deque() {
 	while(front){
 		Node<T> *tmp = front;
