@@ -7,21 +7,19 @@ using namespace std;
 template <typename T>
 class Node {
 public:
-	Node<T> *prev;
 	Node<T> *next;
+	Node<T> *prev;
 	T value;
 
-	Node(T value);
-	Node(Node *prev, Node *next, T value);
+	Node(const T &value, Node *next = NULL, Node *prev = NULL);
 	Node(const Node &a);
-	~Node();
 };
 
 template <typename T>
 class Deque {
 public:
-	Node<T> *front;
 	Node<T> *end;
+	Node<T> *front;
 
 	Deque();
 
@@ -37,48 +35,35 @@ public:
 };
 
 template <typename T>
-Node<T>::Node(T value) {
-	next = NULL;
-	prev = NULL;
-	this->value = value;
-}
-
-template <typename T>
-Node<T>::Node(Node *prev, Node *next, T value) {
-	this->next = next;
+Node<T>::Node(const T &value, Node *next, Node *prev) {
 	this->prev = prev;
+	this->next = next;
 	this->value = value;
 }
 
 template <typename T>
 Node<T>::Node(const Node &a) {
-	next = a->next;
 	prev = a->prev;
+	next = a->next;
 	value = a->value;
 }
 
 template <typename T>
-Node<T>::~Node() {
-	delete next;
-	delete prev;
-}
-
-template <typename T>
 Deque<T>::Deque() {
-	front = NULL;
 	end = NULL;
+	front = NULL;
 }
 
 template <typename T>
 void Deque<T>::pushFront(const T &value) {
 	if (!front) {
 		Node<T> *tmp = new Node<T>(value);
-		front = tmp;
-		end = tmp;	
+		end = tmp;
+		front = tmp;	
 	}
 	else {
-		Node<T> *tmp = new Node<T>(front, NULL, value);
-		front->next = tmp;
+		Node<T> *tmp = new Node<T>(value, front, NULL);
+		front->prev = tmp;
 		front = tmp;
 	}
 }
@@ -87,12 +72,12 @@ template <typename T>
 void Deque<T>::pushEnd(const T &value) {
 	if (!end) {
 		Node<T> *tmp = new Node<T>(value);
-		front = tmp;
 		end = tmp;
+		front = tmp;
 	}
 	else {
-		Node<T> *tmp = new Node<T>(NULL, end, value);
-		end->prev = tmp;
+		Node<T> *tmp = new Node<T>(value, NULL, end);
+		end->next = tmp;
 		end = tmp;
 	}
 }
@@ -107,9 +92,10 @@ void Deque<T>::printFront() {
 	Node<T> *now = front;
 
 	while (now) {
-		cout << now->value << " ";
-		now = now->prev;
+		cout << now->value << " " ;
+		now = now->next;
 	}
+	cout << endl;
 }
 
 template <typename T>
@@ -123,18 +109,19 @@ void Deque<T>::printEnd() {
 
 	while (now) {
 		cout << now->value << " ";
-		now = now->next;
+		now = now->prev;
 	}
+	cout << endl;
 }
 
 template <typename T>
 Deque<T>::~Deque() {
 	while(front){
-		Node<T> *tmp = front->prev;
-		delete front;
-		front = tmp;
+		Node<T> *tmp = front;
+		front = front->next;
+		delete tmp;
 	}
-	front = NULL;
+
 	end = NULL;
 }
 
